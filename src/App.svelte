@@ -1,42 +1,52 @@
 <script>
   import Switch from "./Switch.svelte";
-  import Clipboard from "svelte-clipboard";
-  
-
+  import Clipboard from "svelte-clnpipboard";
+ 
   let pwd = "";
   let pwdLen = 8;
+
+  let tooltipText = "Click to copy!"
 
   let up = true;
   let low = true;
   let num = true;
   let sym = false;
 
+  function tooltipTextHandler(){
+    if(tooltipText = "Click to copy!"){
+      tooltipText = "Copied!";
+    }
+    else{
+      tooltipText = "Click to copy!";
+    }
+  }
+
   function generatePass() {
     pwd = "";
     const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercase = "abcdefghijklmnopqrstuvwxyz";
     const numbers = "0123456789";
-    const symbols = "(!#$%&')*+,-.";
+    const symbols = "._-!?/(),";
 
     let active = [];
     let ac = 0;
 
     if (up) {
-      active.push("uppercase");
+      active.push(uppercase);
       ac++;
     }
 
     if (low) {
-      active.push("lowercase");
+      active.push(lowercase);
       ac++;
     }
 
     if (num) {
-      active.push("numbers");
+      active.push(numbers);
       ac++;
     }
     if (sym) {
-      active.push("symbols");
+      active.push(symbols);
       ac++;
     }
 
@@ -70,9 +80,7 @@
 
     if (pwd.length < pwdLen) {
       const randomElement = active[Math.floor(Math.random() * active.length)];
-      pwd += randomElement.charAt(
-        Math.floor(Math.random() * randomElement.length)
-      );
+      pwd += randomElement.charAt(Math.random() * randomElement.length);
     }
     pwd = pwd.split("");
     for (let i = 0; i < pwd.length; i++) {
@@ -88,12 +96,10 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 <body
-  class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
-  style="font-family:'Lato',sans-serif;"
->
+  class="body-bg bg-purple-900 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
+  style="font-family:'Lato',sans-serif;">
   <main
-    class="bg-white max-w-md mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
-  >
+    class="bg-white max-w-md mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
     <section>
       
       <h3 class="font-bold text-2xl">
@@ -104,60 +110,42 @@
         password generator.
       </p>
     </section>
-
     <section class="mt-10">
       <div class="flex flex-col">
+        <div data-tip="{tooltipText}" class="tooltip tooltip-primary">
         <Clipboard text="{pwd}" let:copy on:copy={() => {
-          console.log('Has Copied');
-        }}>
-        <button on:click={copy} class="mb-6 pt-3 rounded bg-purple-600 hover:bg-purple-700 hover:shadow-xl transition duration-200 h-12">
+          }}>
+        <button on:click={copy} on:click={() => tooltipTextHandler()} class="w-full mb-6 pt-3 rounded bg-purple-600 hover:bg-purple-700 hover:shadow-xl transition duration-200 h-12">
           <div class="block text-white font-bold items-center text-center mb-3">
             {pwd}
           </div>
         </button>
       </Clipboard>
+        </div>
         <div class="mb-6 pt-3 rounded bg-gray-200">
           <div class="block text-gray-700 text-sm font-bold mb-2 ml-3">
             <p>Password length: {pwdLen}</p>
-            <input
-              type="range"
-              bind:value={pwdLen}
-              min="4"
-              max="32"
-              class="range range-primary"
-              style="width: 96%;"
-            />
+            <input type="range" bind:value={pwdLen} min="4" max="32" class="range range-primary" style="width: 96%;"/>
           </div>
         </div>
 
-        <div
-          class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200"
-        >
+        <div class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200">
           <h3 class="pr-5 pl-5">Uppercase</h3>
           <Switch bind:checked={up} id="up" />
         </div>
-        <div
-          class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200"
-        >
+        <div class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200">
           <h3 class="pr-5 pl-5">Lowercase</h3>
           <Switch bind:checked={low} id="low" />
         </div>
-        <div
-          class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200"
-        >
+        <div class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200">
           <h3 class="pr-5 pl-5">Numbers</h3>
           <Switch bind:checked={num} id="num" />
         </div>
-        <div
-          class="mb-6 h-10 flex rounded items-center justify-between bg-gray-200"
-        >
+        <div class="mb-6 h-10 flex rounded items-center justify-between bg-gray-200">
           <h3 class="pr-5 pl-5">Special characters</h3>
           <Switch bind:checked={sym} id="sym" />
         </div>
-        <button
-          on:click={() => generatePass()}
-          class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-          type="submit">GENERATE PASSWORD</button
+        <button on:click={() => generatePass()} on:click={() => { tooltipText = 'Copy to clipboard!' }} class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">GENERATE PASSWORD</button
         >
       </div>
     </section>
