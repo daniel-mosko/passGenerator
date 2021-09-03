@@ -1,6 +1,6 @@
 <script>
   import Switch from "./Switch.svelte";
-  import Clipboard from "svelte-clnpipboard";
+  import Clipboard from "svelte-clipboard";
  
   let pwd = "";
   let pwdLen = 8;
@@ -25,7 +25,7 @@
     pwd = "";
     const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercase = "abcdefghijklmnopqrstuvwxyz";
-    const numbers = "0123456789";
+    const numbers = "012345&6789";
     const symbols = "._-!?/(),";
 
     let active = [];
@@ -95,8 +95,12 @@
 
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+<svelte:head>
+  <link rel="icon" type="image/png" href="icons/favicon.png" />
+</svelte:head>
+
 <body
-  class="body-bg bg-purple-900 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
+  class="body-bg bg-green-600 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
   style="font-family:'Lato',sans-serif;">
   <main
     class="bg-white max-w-md mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
@@ -115,7 +119,7 @@
         <div data-tip="{tooltipText}" class="tooltip tooltip-primary">
         <Clipboard text="{pwd}" let:copy on:copy={() => {
           }}>
-        <button on:click={copy} on:click={() => tooltipTextHandler()} class="w-full mb-6 pt-3 rounded bg-purple-600 hover:bg-purple-700 hover:shadow-xl transition duration-200 h-12">
+        <button on:click={copy} on:click={() => tooltipTextHandler()} class="w-full mb-6 pt-3 rounded bg-green-300 hover:bg-green-400 hover:shadow-xl transition duration-200 h-12">
           <div class="block text-white font-bold items-center text-center mb-3">
             {pwd}
           </div>
@@ -145,7 +149,7 @@
           <h3 class="pr-5 pl-5">Special characters</h3>
           <Switch bind:checked={sym} id="sym" />
         </div>
-        <button on:click={() => generatePass()} on:click={() => { tooltipText = 'Copy to clipboard!' }} class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">GENERATE PASSWORD</button
+        <button on:click={() => generatePass()} on:click={() => { tooltipText = 'Copy to clipboard!' }} class="bg-green-300 hover:bg-green-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-500" type="submit">GENERATE PASSWORD</button
         >
       </div>
     </section>

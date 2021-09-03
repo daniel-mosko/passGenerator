@@ -1056,7 +1056,7 @@ module.exports = {
     themes: [
       {
         'mytheme': {                        /* your theme name */
-           'primary' : '#6d28d9',           /* Primary color */
+           'primary' : '#34d399',           /* Primary color */
            'primary-focus' : '#8462f4',     /* Primary color - focused */
            'primary-content' : '#ffffff',   /* Foreground content color to use on primary color */
 

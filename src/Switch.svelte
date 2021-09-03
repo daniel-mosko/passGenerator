@@ -15,11 +15,11 @@
     }
   
     input[type='checkbox']:checked ~ .thumb {
-      @apply transform translate-x-full border-purple-800;
+      @apply transform translate-x-full border-green-400;
     }
   
     input[type='checkbox']:checked ~ .track {
-      @apply transform transition-colors bg-purple-800;
+      @apply transform transition-colors bg-green-300;
     }
   
     input[type='checkbox']:disabled ~ .track {
