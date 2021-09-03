@@ -11,15 +11,15 @@
     }
   
     .thumb {
-      @apply transition-all duration-300 ease-in-out absolute top-0 left-0 w-6 h-6 bg-white border-2 border-gray-600 rounded-full;
+      @apply transition-all duration-300 ease-in-out absolute top-0 left-0 w-6 h-6 bg-white border-2 border-gray-400 rounded-full;
     }
   
     input[type='checkbox']:checked ~ .thumb {
-      @apply transform translate-x-full border-green-400;
+      @apply transform translate-x-full border-cornflower-blue-500;
     }
   
     input[type='checkbox']:checked ~ .track {
-      @apply transform transition-colors bg-green-300;
+      @apply transform transition-colors bg-cornflower-blue-400;
     }
   
     input[type='checkbox']:disabled ~ .track {

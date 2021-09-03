@@ -1,9 +1,18 @@
 <script>
   import Switch from "./Switch.svelte";
   import Clipboard from "svelte-clipboard";
+  import zxcvbn from "zxcvbn";
  
-  let pwd = "";
-  let pwdLen = 8;
+  let pwd = "",
+		  msg = ["Too Weak", "Weak ☠️", "Good 👍", "Strong 💪", "Super Strong 🤖"],
+      clr = ["progress-error","progress-error","progress-warning","progress-secondary","progress-success"];
+
+  var isStrong = "";
+
+  var pwdLen = 8;
+  var pwdStr = 0;
+  var pwdStrText = "";
+  var pwdStrColor = "progress-error";
 
   let tooltipText = "Click to copy!"
 
@@ -11,6 +20,16 @@
   let low = true;
   let num = true;
   let sym = false;
+
+  $:generatePass(pwdLen);
+
+  function pwdStrHandler(){
+    var score = zxcvbn(pwd).score;
+    pwdStr = score;
+    pwdStrText = msg[score];
+    pwdStrColor = clr[score];
+
+  }
 
   function tooltipTextHandler(){
     if(tooltipText = "Click to copy!"){
@@ -21,11 +40,11 @@
     }
   }
 
-  function generatePass() {
+  function generatePass(pwdLen) {
     pwd = "";
     const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercase = "abcdefghijklmnopqrstuvwxyz";
-    const numbers = "012345&6789";
+    const numbers = "0123456789";
     const symbols = "._-!?/(),";
 
     let active = [];
@@ -90,6 +109,7 @@
       pwd[j] = tmp;
     }
     pwd = pwd.join("");
+    pwdStrHandler();
   }
 </script>
 
@@ -100,10 +120,10 @@
 </svelte:head>
 
 <body
-  class="body-bg bg-green-600 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
-  style="font-family:'Lato',sans-serif;">
+  class="bg-gradient-to-br from-bright-turquoise-300 to bg-cornflower-blue-500 bg-size-200 bg-pos-0 hover:bg-pos-100 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
+  style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
   <main
-    class="bg-white max-w-md mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+    class="bg-white max-w-md mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl" style="backdrop-filter: blur(20px)">
     <section>
       
       <h3 class="font-bold text-2xl">
@@ -115,41 +135,46 @@
       </p>
     </section>
     <section class="mt-10">
+      <div class="block text-gray-400 text-xs font-semibold mb-5">
+        <p class="pb-2">{pwdStrText}</p>
+        <progress value="{pwdStr}" min="0" max="4" class="progress {pwdStrColor}" style=";"></progress>
+      </div>
       <div class="flex flex-col">
         <div data-tip="{tooltipText}" class="tooltip tooltip-primary">
-        <Clipboard text="{pwd}" let:copy on:copy={() => {
+          <Clipboard text="{pwd}" let:copy on:copy={() => {
           }}>
-        <button on:click={copy} on:click={() => tooltipTextHandler()} class="w-full mb-6 pt-3 rounded bg-green-300 hover:bg-green-400 hover:shadow-xl transition duration-200 h-12">
-          <div class="block text-white font-bold items-center text-center mb-3">
+        <button on:click={copy} on:click={() => tooltipTextHandler()} class="w-full mb-6 pt-3 bg-gradient-to-br from-bright-turquoise-500 to bg-cornflower-blue-500 hover:shadow-xl transition-all duration-500 hover:bg-gradient-to-br hover:from-bright-turquoise-500 to hover:bg-cornflower-blue-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-bold py-2 rounded shadow-lg h-12">
+          <div class="block text-white font-semibold items-center text-center mb-3">
             {pwd}
           </div>
         </button>
       </Clipboard>
         </div>
-        <div class="mb-6 pt-3 rounded bg-gray-200">
-          <div class="block text-gray-700 text-sm font-bold mb-2 ml-3">
-            <p>Password length: {pwdLen}</p>
-            <input type="range" bind:value={pwdLen} min="4" max="32" class="range range-primary" style="width: 96%;"/>
+        <div class="mb-6 pt-3 rounded-lg bg-gray-50 shadow-inner">
+          <div class="block text-gray-400 text-xs font-semibold mb-2 ml-3">
+            <p class="pb-2">Password length: {pwdLen}</p>
+            <input type="range" bind:value={pwdLen} on:hashchange={() => generatePass(pwdLen)} min="4" max="32" class="range range-primary" style="width: 96%;"/>
           </div>
         </div>
 
-        <div class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200">
+        <div class="mb-2 h-10 flex rounded-lg items-center justify-between bg-gray-50 shadow-inner">
           <h3 class="pr-5 pl-5">Uppercase</h3>
           <Switch bind:checked={up} id="up" />
         </div>
-        <div class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200">
+        <div class="mb-2 h-10 flex rounded-lg items-center justify-between bg-gray-50 shadow-inner">
           <h3 class="pr-5 pl-5">Lowercase</h3>
           <Switch bind:checked={low} id="low" />
         </div>
-        <div class="mb-2 h-10 flex rounded items-center justify-between bg-gray-200">
+        <div class="mb-2 h-10 flex rounded-lg items-center justify-between bg-gray-50 shadow-inner">
           <h3 class="pr-5 pl-5">Numbers</h3>
           <Switch bind:checked={num} id="num" />
         </div>
-        <div class="mb-6 h-10 flex rounded items-center justify-between bg-gray-200">
+        <div class="mb-6 h-10 flex rounded-lg items-center justify-between bg-gray-50 shadow-inner">
           <h3 class="pr-5 pl-5">Special characters</h3>
           <Switch bind:checked={sym} id="sym" />
         </div>
-        <button on:click={() => generatePass()} on:click={() => { tooltipText = 'Copy to clipboard!' }} class="bg-green-300 hover:bg-green-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-500" type="submit">GENERATE PASSWORD</button
+        <button on:click={() => generatePass(pwdLen)} on:click={() => { tooltipText = 'Copy to clipboard!' }}
+          class="bg-gradient-to-br from-bright-turquoise-500 to bg-cornflower-blue-500 hover:shadow-xl transition-all duration-500 hover:bg-gradient-to-br hover:from-bright-turquoise-500 to hover:bg-cornflower-blue-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-semibold py-2 rounded-lg shadow-lg" type="submit">GENERATE PASSWORD</button
         >
       </div>
     </section>

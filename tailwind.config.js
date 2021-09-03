@@ -109,7 +109,59 @@ module.exports = {
         "700": "#151e2d",
         "800": "#0b1423",
         "900": "#010a19"
-      }
+      },
+      'bossanova': {
+        DEFAULT: '#5E2563',
+        '50': '#D296D8',
+        '100': '#CB83D1',
+        '200': '#BB5EC3',
+        '300': '#A541AD',
+        '400': '#813388',
+        '500': '#5E2563',
+        '600': '#3B173E',
+        '700': '#180919',
+        '800': '#000000',
+        '900': '#000000'
+      },
+      'lynch': {
+        DEFAULT: '#65799B',
+        '50': '#F0F2F5',
+        '100': '#E1E5EB',
+        '200': '#C2CAD7',
+        '300': '#A3AFC3',
+        '400': '#8494AF',
+        '500': '#65799B',
+        '600': '#51617C',
+        '700': '#3D495D',
+        '800': '#29313E',
+        '900': '#141920'
+      },
+      'bright-turquoise': {
+        DEFAULT: '#17EAD9',
+        '50': '#E9FDFB',
+        '100': '#D2FBF8',
+        '200': '#A3F7F0',
+        '300': '#75F2E8',
+        '400': '#46EEE1',
+        '500': '#17EAD9',
+        '600': '#11BDAF',
+        '700': '#0D8E84',
+        '800': '#095F58',
+        '900': '#04312D'
+      },
+      'cornflower-blue': {
+        DEFAULT: '#6078EA',
+        '50': '#FFFFFF',
+        '100': '#FFFFFF',
+        '200': '#E7EBFC',
+        '300': '#BAC5F6',
+        '400': '#8D9EF0',
+        '500': '#6078EA',
+        '600': '#3352E4',
+        '700': '#1B39C9',
+        '800': '#152C9C',
+        '900': '#0F206F'
+      },
     },
     spacing: {
       px: '1px',
@@ -175,6 +227,7 @@ module.exports = {
       'gradient-to-bl': 'linear-gradient(to bottom left, var(--tw-gradient-stops))',
       'gradient-to-l': 'linear-gradient(to left, var(--tw-gradient-stops))',
       'gradient-to-tl': 'linear-gradient(to top left, var(--tw-gradient-stops))',
+      'wallpaper' : "url('/images/bgwall.jpg')",
     },
     backgroundOpacity: (theme) => theme('opacity'),
     backgroundPosition: {
@@ -247,7 +300,7 @@ module.exports = {
       lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+      inner: 'inset 0 4px 12px 0px rgba(0, 0, 0, 0.06)',
       none: 'none',
     },
     caretColor: (theme) => theme('colors'),
@@ -324,6 +377,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'Montserrat',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
@@ -1056,7 +1110,7 @@ module.exports = {
     themes: [
       {
         'mytheme': {                        /* your theme name */
-           'primary' : '#34d399',           /* Primary color */
+           'primary' : '#6078EA',           /* Primary color */
            'primary-focus' : '#8462f4',     /* Primary color - focused */
            'primary-content' : '#ffffff',   /* Foreground content color to use on primary color */
 
@@ -1078,7 +1132,7 @@ module.exports = {
            'base-content' : '#1f2937',      /* Foreground content color to use on base color */
 
            'info' : '#2094f3',              /* Info */
-           'success' : '#009485',           /* Success */
+           'success' : '#10b929',           /* Success */
            'warning' : '#ff9900',           /* Warning */
            'error' : '#ff5724',             /* Error */
         },
