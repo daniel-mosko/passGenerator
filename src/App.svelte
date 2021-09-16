@@ -4,12 +4,12 @@
   import zxcvbn from "zxcvbn";
  
   let pwd = "",
-		  msg = ["Too Weak", "Weak ☠️", "Good 👍", "Strong 💪", "Super Strong 🤖"],
+		  msg = ["Too Weak 🤒", "Weak ☠️", "Good 👍", "Strong 💪", "Super Strong 🤖"],
       clr = ["progress-error","progress-error","progress-warning","progress-secondary","progress-success"];
 
   var isStrong = "";
 
-  var pwdLen = 8;
+  var pwdLen = 9;
   var pwdStr = 0;
   var pwdStrText = "";
   var pwdStrColor = "progress-error";
@@ -28,7 +28,6 @@
     pwdStr = score;
     pwdStrText = msg[score];
     pwdStrColor = clr[score];
-
   }
 
   function tooltipTextHandler(){
@@ -97,7 +96,7 @@
       }
     }
 
-    if (pwd.length < pwdLen) {
+    if (pwd.length < pwdLen && pwd.length != 0) {
       const randomElement = active[Math.floor(Math.random() * active.length)];
       pwd += randomElement.charAt(Math.random() * randomElement.length);
     }
