@@ -1,2 +1,2 @@
 Svelte App with Tailwind CSS\
-🚀 [LIVE DEMO](https://613206ba762aee000727328c--compassionate-neumann-a5015d.netlify.app/ "Password generator")
+🚀 [LIVE DEMO](https://61434ab1964d430007a40595--compassionate-neumann-a5015d.netlify.app/ "Password generator")
